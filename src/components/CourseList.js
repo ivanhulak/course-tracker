@@ -9,13 +9,13 @@ const CourseList = ({ courses, refreshCourses }) => {
                 {courses
                     .filter((course) => !course.fields.purchased)
                     .map((course) => <Course course={course} key={course.id} refreshCourses={refreshCourses} />
-                )}
+                    )}
             </div>
             <h2 className="mt-5 mb-3">Already Purchased</h2>
             {courses
                 .filter((course) => course.fields.purchased)
                 .map((course) => <Course course={course} key={course.id} refreshCourses={refreshCourses} />
-            )}
+                )}
         </div>
     )
 }

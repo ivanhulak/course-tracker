@@ -2,14 +2,14 @@ import CourseForm from './components/CourseForm';
 import CourseList from './components/CourseList';
 import './App.css';
 import { useEffect, useState } from 'react';
-import {airtableAPI} from './DAL/airtable-api';
+import { airtableAPI } from './DAL/airtable-api';
 
 function App() {
   const [courses, setCourses] = useState([]);
 
   const loadCourses = async () => {
-    const response = await airtableAPI.loadCourses()
-    setCourses(response.data.records)
+    const data = await airtableAPI.loadCourses()
+    setCourses(data.records)
   }
 
   useEffect(() => {
