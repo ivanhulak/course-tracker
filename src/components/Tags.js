@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react'
 
-const Tags = ({ tagsUpdated, key }) => {
+const Tags = ({ tagsUpdated, keyValue }) => {
     const tagChoices = ['node', 'javascript', 'react', 'react-native','digital-marketing','devops'];
     const [selectedTags, setSelectedTags] = useState([]);
 
     useEffect(() => {
         setSelectedTags([]);
-    }, [key]);
+    }, [keyValue]);
 
     const tagChange = (e) => {
         const value = e.target.value;

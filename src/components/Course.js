@@ -1,24 +1,19 @@
-import React from 'react'
+import React from 'react';
+import { airtableAPI } from '../DAL/airtable-api';
 
 const Course = ({ course, refreshCourses }) => {
-    const markCoursePurchased = async () => {
+    const markCoursePurchased = async (courseId) => {
         try {
-            await fetch('/.netlify/functions/courses', {
-                method: 'PUT',
-                body: JSON.stringify({ ...course, purchased: true }),
-            });
+            await airtableAPI.updateCourse(courseId)
             refreshCourses();
         } catch (err) {
             console.error(err);
         }
     };
 
-    const deleteCourse = async () => {
+    const deleteCourse = async (courseId) => {
         try {
-            await fetch('/.netlify/functions/courses', {
-                method: 'DELETE',
-                body: JSON.stringify({ id: course.id }),
-            });
+            await airtableAPI.deleteCourse(courseId)
             refreshCourses();
         } catch (err) {
             console.error(err);
@@ -27,19 +22,19 @@ const Course = ({ course, refreshCourses }) => {
 
     return (
         <div className="list-group-item">
-            <a href={course.link}>
-                <h4 className="list-group-item-heading">{course.name}</h4>
+            <a href={course.fields.link}>
+                <h4 className="list-group-item-heading">{course.fields.name}</h4>
             </a>
             <p>
                 Tags:{' '}
-                {course.tags && course.tags.map((tag, index) => (
+                {course.fields.tags && course.fields.tags.map((tag, index) => (
                     <span className="badge badge-primary mr-2" key={index}>{tag}</span>
                 ))}
             </p>
-            {!course.purchased && (
-                <button className="btn btn-sm btn-primary" onClick={markCoursePurchased}>Purchased</button>
+            {!course.fields.purchased && (
+                <button className="btn btn-sm btn-primary" onClick={() => markCoursePurchased(course.id)}>Purchased</button>
             )}
-            <button className="btn btn-sm btn-danger ml-2" onClick={deleteCourse}>Delete</button>
+            <button className="btn btn-sm btn-danger ml-2" onClick={() => deleteCourse(course.id)}>Delete</button>
         </div>
     )
 }
