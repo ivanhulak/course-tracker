@@ -1,7 +1,7 @@
 require('dotenv').config();
 var Airtable = require('airtable');
-var base = new Airtable({ apiKey: process.env.AIRTABLE_API_KEY }).base(process.env.AIRTABLE_BASE_ID);
-const table = base(process.env.AIRTABLE_TABLE_NAME);
+var base = new Airtable({ apiKey: process.env.REACT_APP_MY_API_TOKEN }).base(process.env.REACT_APP_AIRTABLE_BASE_ID);
+const table = base(process.env.REACT_APP_AIRTABLE_TABLE_NAME);
 
 module.exports = { table };
 
